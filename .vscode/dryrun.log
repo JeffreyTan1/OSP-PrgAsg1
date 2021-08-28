@@ -1,0 +1,6 @@
+make --dry-run --always-make --keep-going --print-directory
+make: Entering directory '/mnt/c/Users/tanma/Google Drive/Synced Desktop/Y2S2/OSP Files/Assignments/Programming Assignment 1/Repo'
+g++ -Wall -Werror -std=c++11 -O -c ProducerConsumer.cpp -pthread
+g++ -Wall -Werror -std=c++11 -O -o a ProducerConsumer.o -pthread
+make: Leaving directory '/mnt/c/Users/tanma/Google Drive/Synced Desktop/Y2S2/OSP Files/Assignments/Programming Assignment 1/Repo'
+ 
