@@ -181,7 +181,7 @@ void *Enter(void *threadId)
 
 int main(void)
 {
-    //Create x barbers and one customer generator
+    // Create x barbers and one customer generator
     pthread_t barbers[NUM_BARBERS], customers;
     int statusCreate;
     int labels[NUM_BARBERS];

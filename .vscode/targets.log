@@ -6,7 +6,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Sat Sep  4 12:52:38 2021
+# Make data base, printed on Sat Sep  4 21:21:12 2021
 
 # Variables
 
@@ -57,7 +57,7 @@ CONDA_PREFIX = /root/miniconda3
 # environment
 VSCODE_LOG_STACK = false
 # environment
-VSCODE_IPC_HOOK_CLI = /tmp/vscode-ipc-4c2e4928-eed0-46df-9ae0-0b55a42b67ef.sock
+VSCODE_IPC_HOOK_CLI = /tmp/vscode-ipc-d314834c-48e1-4ed2-8b6e-5e48da643cec.sock
 # default
 .FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell archives jobserver output-sync check-symlink load
 # environment
@@ -73,7 +73,7 @@ PWD = /mnt/c/Users/tanma/Google Drive/Synced Desktop/Y2S2/OSP Files/Assignments/
 # default
 .LOADED := 
 # environment
-WSL_INTEROP = /run/WSL/327_interop
+WSL_INTEROP = /run/WSL/18_interop
 # environment
 VSCODE_AMD_ENTRYPOINT = vs/server/remoteExtensionHostProcess
 # environment
@@ -163,7 +163,7 @@ WSL_DISTRO_NAME = Ubuntu
 # environment
 _CE_CONDA = 
 # variable set hash-table stats:
-# Load=76/1024=7%, Rehash=0, Collisions=6/104=6%
+# Load=76/1024=7%, Rehash=0, Collisions=6/101=6%
 
 # Pattern-specific Variable Values
 
@@ -171,38 +171,38 @@ _CE_CONDA =
 
 # Directories
 
-# . (device 43, inode 21392098230022689): 26 files, no impossibilities.
+# . (device 43, inode 21392098230022689): 31 files, no impossibilities.
 
-# 26 files, no impossibilities in 1 directories.
+# 31 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
-%.o: %.cpp
-#  recipe to execute (from 'Makefile', line 12):
-	g++ -Wall -Werror -std=c++11 -O -c $^ -pthread
-
-# 1 implicit rules, 0 (0.0%) terminal.
+# No implicit rules.
 
 # Files
 
-a: ProducerConsumer.o
-#  Implicit rule search has not been done.
-#  Last modified 2021-08-14 19:36:40
-#  File has been updated.
-#  Needs to be updated (-q is set).
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/3=0%
-#  recipe to execute (from 'Makefile', line 9):
-	g++ -Wall -Werror -std=c++11 -O -o $@ $^ -pthread
-
-all: a
+all: Reader_Writer Sleeping_Barbers
 #  Command line target.
 #  Implicit rule search has been done.
 #  File does not exist.
 #  File has been updated.
-#  Needs to be updated (-q is set).
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/3=0%
+#  Successfully updated.
+
+Sleeping_Barbers.o: Sleeping_Barbers.cpp
+#  Implicit rule search has not been done.
+#  Last modified 2021-09-04 21:19:52.322359
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'Makefile', line 16):
+	g++ -c Sleeping_Barbers.cpp
+
+Sleeping_Barbers: Sleeping_Barbers.o
+#  Implicit rule search has not been done.
+#  Last modified 2021-09-04 21:19:52.6133468
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'Makefile', line 13):
+	g++ -Wall -Werror -std=c++11 Sleeping_Barbers.o -O -o Sleeping_Barbers -lpthread
 
 .default: all
 #  Implicit rule search has not been done.
@@ -212,14 +212,14 @@ all: a
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2021-08-14 19:18:01
+#  Last modified 2021-09-04 21:21:06.9492013
 #  File has been updated.
 #  Successfully updated.
 
 # Not a target:
-ProducerConsumer.cpp:
+Reader_Writer.cpp:
 #  Implicit rule search has been done.
-#  Last modified 2021-09-03 17:30:57.462
+#  Last modified 2021-09-04 21:05:27
 #  File has been updated.
 #  Successfully updated.
 
@@ -233,50 +233,46 @@ clean:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
-#  recipe to execute (from 'Makefile', line 6):
-	rm -rf a *.o *.dSYM
+#  recipe to execute (from 'Makefile', line 19):
+	rm *.o Reader_Writer Sleeping_Barbers
 
-ProducerConsumer.o: ProducerConsumer.cpp
+# Not a target:
+Sleeping_Barbers.cpp:
 #  Implicit rule search has been done.
-#  Implicit/static pattern stem: 'ProducerConsumer'
-#  Last modified 2021-08-14 19:16:20
+#  Last modified 2021-09-04 18:59:44.039586
 #  File has been updated.
-#  Needs to be updated (-q is set).
-# automatic
-# @ := ProducerConsumer.o
-# automatic
-# % := 
-# automatic
-# * := ProducerConsumer
-# automatic
-# + := ProducerConsumer.cpp
-# automatic
-# | := 
-# automatic
-# < := ProducerConsumer.cpp
-# automatic
-# ^ := ProducerConsumer.cpp
-# automatic
-# ? := ProducerConsumer.cpp
-# variable set hash-table stats:
-# Load=8/32=25%, Rehash=0, Collisions=1/12=8%
-#  recipe to execute (from 'Makefile', line 12):
-	g++ -Wall -Werror -std=c++11 -O -c $^ -pthread
+#  Successfully updated.
+
+Reader_Writer.o: Reader_Writer.cpp
+#  Implicit rule search has not been done.
+#  Last modified 2021-09-04 21:19:51.8083486
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'Makefile', line 10):
+	g++ -c Reader_Writer.cpp
+
+Reader_Writer: Reader_Writer.o
+#  Implicit rule search has not been done.
+#  Last modified 2021-09-04 21:19:51.9323488
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'Makefile', line 6):
+	g++ -Wall -Werror -std=c++11 Reader_Writer.o -O -o Reader_Writer -lpthread
 
 # files hash-table stats:
-# Load=9/1024=1%, Rehash=0, Collisions=0/27=0%
+# Load=12/1024=1%, Rehash=0, Collisions=0/34=0%
 # VPATH Search Paths
 
 # No 'vpath' search paths.
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 35 / storage = 364 B / avg = 10 B
-# current buf: size = 8162 B / used = 364 B / count = 35 / avg = 10 B
+# strcache buffers: 1 (0) / strings = 38 / storage = 430 B / avg = 11 B
+# current buf: size = 8162 B / used = 430 B / count = 38 / avg = 11 B
 
-# strcache performance: lookups = 51 / hit rate = 31%
+# strcache performance: lookups = 61 / hit rate = 37%
 # hash-table stats:
-# Load=35/8192=0%, Rehash=0, Collisions=1/51=2%
-# Finished Make data base on Sat Sep  4 12:52:38 2021
+# Load=38/8192=0%, Rehash=0, Collisions=1/61=2%
+# Finished Make data base on Sat Sep  4 21:21:12 2021
 
  

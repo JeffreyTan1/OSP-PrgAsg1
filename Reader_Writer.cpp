@@ -16,7 +16,6 @@
  * available at any point in time. If the reader is not automatically put into ready mode, the writers have a chance
  * to write to the resource.
  * 
- * 
 */
 
 #include <pthread.h>
@@ -55,7 +54,7 @@ void *Read(void *threadId)
     pthread_mutex_unlock(&threadLock);
     // end wait
 
-    do
+    while (!stop)
     {
         // increment readers and lock writers
         pthread_mutex_lock(&mutex);
@@ -81,8 +80,7 @@ void *Read(void *threadId)
         pthread_mutex_unlock(&mutex);
 
         sleep(1);
-
-    } while (!stop);
+    }
 
     pthread_exit(NULL);
 }
@@ -101,7 +99,7 @@ void *Write(void *threadId)
     pthread_mutex_unlock(&threadLock);
     // end wait
 
-    do
+    while (!stop)
     {
         pthread_mutex_lock(&writeMutex);
         resource = rand() % 10;
@@ -111,7 +109,7 @@ void *Write(void *threadId)
 
         pthread_mutex_unlock(&writeMutex);
         sleep(1);
-    } while (!stop);
+    }
 
     pthread_exit(NULL);
 }
