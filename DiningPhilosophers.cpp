@@ -2,6 +2,8 @@
 #include <iostream>
 #include <random>
 #include <unistd.h>
+#include <chrono>
+#include <ctime>
 
 #define NUM_THREADS 5
 #define NUM_FORKS 5
@@ -15,16 +17,22 @@ pthread_mutex_t forks[NUM_FORKS];
 
 //used to stop thread execution until the condition that all threads have been
 bool stop = true;
+pthread_mutex_t IOLock;
 pthread_mutex_t threadLock;
 pthread_cond_t conditionVar;
+
+typedef std::chrono::high_resolution_clock Clock;
+auto start_time = Clock::now();
 
 void *Philosophise(void *threadId)
 {
     int tid = *((int *)threadId) - 1;
     int philosopherNum = *((int *)threadId);
+    int secondForkIndex = tid - 1 < 0 ? NUM_FORKS - 1 : tid - 1;
     int firstFork;
     int secondFork;
-    int secondForkIndex = tid - 1 < 0 ? NUM_FORKS : tid - 1;
+    auto end_time = Clock::now();
+    int repeat;
 
     //wait for pthread_cond_broadcast() in main
     pthread_mutex_lock(&threadLock);
@@ -39,25 +47,50 @@ void *Philosophise(void *threadId)
     {
         while (!firstFork)
         {
-            cout << "Philosopher " << philosopherNum << ": sleeping for first fork - i want " << tid << endl;
+            pthread_mutex_lock(&IOLock);
+            end_time = Clock::now();
+            cout << "At:" << std::chrono::duration_cast<std::chrono::nanoseconds>(end_time - start_time).count() << "nanoseconds" << endl;
+            cout << "Philosopher " << philosopherNum << ": sleeping for first fork - i want " << tid << "   Repeat " << repeat << endl;
+            ;
+            pthread_mutex_unlock(&IOLock);
+
             sleep((rand() % 1000) / 1000);
             firstFork = pthread_mutex_trylock(&forks[tid]);
+            repeat++;
         }
 
-        cout << "Philosopher " << philosopherNum << ": successful in obtaining first fork - " << tid << endl;
+        repeat = 0;
+        pthread_mutex_lock(&IOLock);
+        end_time = Clock::now();
+        cout << "At:" << std::chrono::duration_cast<std::chrono::nanoseconds>(end_time - start_time).count() << "nanoseconds" << endl;
+        cout << "Philosopher " << philosopherNum << ": successful in obtaining first fork - " << tid << " | " << &forks[tid] << endl;
+        ;
+        pthread_mutex_unlock(&IOLock);
 
         while (!secondFork)
         {
-            cout << "Philosopher " << philosopherNum << ": sleeping for second fork - i want " << secondForkIndex << endl;
+
+            pthread_mutex_lock(&IOLock);
+            end_time = Clock::now();
+            cout << "At:" << std::chrono::duration_cast<std::chrono::nanoseconds>(end_time - start_time).count() << "nanoseconds" << endl;
+            cout << "Philosopher " << philosopherNum << ": sleeping for second fork - i want " << secondForkIndex << "   Repeat " << repeat << endl;
+            pthread_mutex_unlock(&IOLock);
+
             sleep((rand() % 1000) / 1000);
             secondFork = pthread_mutex_trylock(&forks[secondForkIndex]);
+            repeat++;
         }
+        repeat = 0;
 
-        cout << "Philosopher " << philosopherNum << ": successful in obtaining second fork - " << secondForkIndex << endl;
-
+        pthread_mutex_lock(&IOLock);
+        end_time = Clock::now();
+        cout << "At:" << std::chrono::duration_cast<std::chrono::nanoseconds>(end_time - start_time).count() << "nanoseconds" << endl;
+        cout << "Philosopher " << philosopherNum << ": successful in obtaining second fork - " << secondForkIndex << " | " << &forks[secondForkIndex] << endl;
         cout << "Philosopher " << philosopherNum << ": eating using forks " << tid << " and " << secondForkIndex << endl;
+        pthread_mutex_unlock(&IOLock);
 
         sleep((rand() % 1000) / 1000);
+
         pthread_mutex_unlock(&forks[tid]);
         pthread_mutex_unlock(&forks[secondForkIndex]);
         firstFork = false;
@@ -91,7 +124,7 @@ int main(void)
     pthread_mutex_unlock(&threadLock);
 
     //wait 10 seconds, then stop thread execution
-    sleep(10);
+    sleep(5);
     stop = true;
 
     //wait for all threads to finish executing
