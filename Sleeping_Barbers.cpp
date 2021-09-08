@@ -8,12 +8,6 @@
 
 #define RUN_TIME 10
 #define NUM_SEATS 4
-// The pause time between customer arrivals is = (rand() % 1000 * 1000) / CUST_FREQ;
-// I've found that on my machine the following produces an interesting output i.e. at some points all the seats are full
-// but there isn't too much spam of customers saying that the seats are full
-// NUM_BARBERS = 1, CUST_FREQ = 2
-// NUM_BARBERS = 2, CUST_FREQ = 3
-// NUM_BARBERS = 3, CUST_FREQ = 4
 #define NUM_BARBERS 3
 #define CUST_FREQ 4
 
@@ -21,9 +15,11 @@ using std::cout;
 using std::endl;
 using std::rand;
 
-// Set this variable for the mutex "unlock"/"lock" outputs
+// Resources
 int waiting[NUM_SEATS];
 int waitingLen = 0;
+
+// To stop after 10 seconds
 bool stop = false;
 
 // One mutex, condition var, and loop variable for each barber

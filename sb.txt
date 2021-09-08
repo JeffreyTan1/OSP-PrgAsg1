@@ -140,11 +140,44 @@ Barber 1 - serving chair 1
 Barber 2 - finished job
                                                                         Barber 2 | mutex locked |exit section
                                                                         Barber 2 | mutex unlocked |exit section
+                                                                        Customers | mutex locked
+Customer arrived in chair = 1 | Waiting = 2
+                                                                        Customers | mutex unlocked
                                                                         Barber 2 | mutex locked |entry section
                                                                         Barber 2 | mutex unlocked |entry section
 Barber 2 - serving chair 2
                                                                         Customers | mutex locked
+Customer arrived in chair = 1 | Waiting = 2
+                                                                        Customers | mutex unlocked
+Barber 1 - finished job
+                                                                        Barber 1 | mutex locked |exit section
+                                                                        Barber 1 | mutex unlocked |exit section
+                                                                        Barber 1 | mutex locked |entry section
+                                                                        Barber 1 | mutex unlocked |entry section
+Barber 1 - serving chair 1
+Barber 1 - finished job
+                                                                        Barber 1 | mutex locked |exit section
+                                                                        Barber 1 | mutex unlocked |exit section
+                                                                        Barber 1 | mutex locked |entry section
+                                                                        Barber 1 | mutex unlocked |entry section
+Barber 1 - serving chair 1
+Barber 1 - finished job
+                                                                        Barber 1 | mutex locked |exit section
+Barber 1 - went to sleep
+                                                                        Barber 1 | mutex unlocked |exit section
+                                                                        Customers | mutex locked
 Customer arrived in chair = 0 | Waiting = 1
+Signal next barber : "Wake up barber 1!"
+                                                                        Customers | mutex unlocked
+Barber 1 - woke up
+                                                                        Barber 1 | mutex locked |entry section
+                                                                        Barber 1 | mutex unlocked |entry section
+Barber 1 - serving chair 0
+                                                                        Customers | mutex locked
+Customer arrived in chair = 0 | Waiting = 1
+                                                                        Customers | mutex unlocked
+                                                                        Customers | mutex locked
+Customer arrived in chair = 1 | Waiting = 2
                                                                         Customers | mutex unlocked
 Barber 1 - finished job
                                                                         Barber 1 | mutex locked |exit section
@@ -152,294 +185,48 @@ Barber 1 - finished job
                                                                         Barber 1 | mutex locked |entry section
                                                                         Barber 1 | mutex unlocked |entry section
 Barber 1 - serving chair 0
-Barber 2 - finished job
-                                                                        Barber 2 | mutex locked |exit section
-Barber 2 - went to sleep
-                                                                        Barber 2 | mutex unlocked |exit section
-                                                                        Customers | mutex locked
-Customer arrived in chair = 0 | Waiting = 1
-Signal next barber : "Wake up barber 2!"
-                                                                        Customers | mutex unlocked
-Barber 2 - woke up
-                                                                        Barber 2 | mutex locked |entry section
-                                                                        Barber 2 | mutex unlocked |entry section
-Barber 2 - serving chair 0
-                                                                        Customers | mutex locked
-Customer arrived in chair = 0 | Waiting = 1
-                                                                        Customers | mutex unlocked
-                                                                        Customers | mutex locked
-Customer arrived in chair = 1 | Waiting = 2
-                                                                        Customers | mutex unlocked
-Barber 2 - finished job
-                                                                        Barber 2 | mutex locked |exit section
-                                                                        Barber 2 | mutex unlocked |exit section
-                                                                        Barber 2 | mutex locked |entry section
-                                                                        Barber 2 | mutex unlocked |entry section
-Barber 2 - serving chair 0
-                                                                        Customers | mutex locked
-Customer arrived in chair = 1 | Waiting = 2
-                                                                        Customers | mutex unlocked
-                                                                        Customers | mutex locked
-Customer arrived in chair = 2 | Waiting = 3
-                                                                        Customers | mutex unlocked
-                                                                        Customers | mutex locked
-Customer arrived in chair = 3 | Waiting = 4
-                                                                        Customers | mutex unlocked
-                                                                        Customers | mutex locked
-All seats are taken, try again later.
-                                                                        Customers | mutex unlocked
-Barber 0 - finished job
-                                                                        Barber 0 | mutex locked |exit section
-                                                                        Barber 0 | mutex unlocked |exit section
-                                                                        Barber 0 | mutex locked |entry section
-                                                                        Barber 0 | mutex unlocked |entry section
-Barber 0 - serving chair 1
-                                                                        Customers | mutex locked
-Customer arrived in chair = 3 | Waiting = 4
-                                                                        Customers | mutex unlocked
-                                                                        Customers | mutex locked
-All seats are taken, try again later.
-                                                                        Customers | mutex unlocked
-Barber 2 - finished job
-                                                                        Barber 2 | mutex locked |exit section
-                                                                        Barber 2 | mutex unlocked |exit section
-                                                                        Barber 2 | mutex locked |entry section
-                                                                        Barber 2 | mutex unlocked |entry section
-Barber 2 - serving chair 1
-Barber 0 - finished job
-                                                                        Barber 0 | mutex locked |exit section
-                                                                        Barber 0 | mutex unlocked |exit section
-                                                                        Barber 0 | mutex locked |entry section
-                                                                        Barber 0 | mutex unlocked |entry section
-Barber 0 - serving chair 2
-                                                                        Customers | mutex locked
-Customer arrived in chair = 2 | Waiting = 3
-                                                                        Customers | mutex unlocked
-Barber 1 - finished job
-                                                                        Barber 1 | mutex locked |exit section
-                                                                        Barber 1 | mutex unlocked |exit section
-                                                                        Barber 1 | mutex locked |entry section
-                                                                        Barber 1 | mutex unlocked |entry section
-Barber 1 - serving chair 3
-                                                                        Customers | mutex locked
-Customer arrived in chair = 2 | Waiting = 3
-                                                                        Customers | mutex unlocked
-                                                                        Customers | mutex locked
-Customer arrived in chair = 3 | Waiting = 4
-                                                                        Customers | mutex unlocked
-                                                                        Customers | mutex locked
-All seats are taken, try again later.
-                                                                        Customers | mutex unlocked
-                                                                        Customers | mutex locked
-All seats are taken, try again later.
-                                                                        Customers | mutex unlocked
-Barber 1 - finished job
-                                                                        Barber 1 | mutex locked |exit section
-                                                                        Barber 1 | mutex unlocked |exit section
-                                                                        Barber 1 | mutex locked |entry section
-                                                                        Barber 1 | mutex unlocked |entry section
-Barber 1 - serving chair 3
-Barber 1 - finished job
-                                                                        Barber 1 | mutex locked |exit section
-                                                                        Barber 1 | mutex unlocked |exit section
-                                                                        Barber 1 | mutex locked |entry section
-                                                                        Barber 1 | mutex unlocked |entry section
-Barber 1 - serving chair 2
-                                                                        Customers | mutex locked
-Customer arrived in chair = 2 | Waiting = 3
-                                                                        Customers | mutex unlocked
-Barber 0 - finished job
-                                                                        Barber 0 | mutex locked |exit section
-                                                                        Barber 0 | mutex unlocked |exit section
-                                                                        Barber 0 | mutex locked |entry section
-                                                                        Barber 0 | mutex unlocked |entry section
-Barber 0 - serving chair 2
-Barber 2 - finished job
-                                                                        Barber 2 | mutex locked |exit section
-                                                                        Barber 2 | mutex unlocked |exit section
-                                                                        Barber 2 | mutex locked |entry section
-                                                                        Barber 2 | mutex unlocked |entry section
-Barber 2 - serving chair 3
-                                                                        Customers | mutex locked
-Customer arrived in chair = 1 | Waiting = 2
-                                                                        Customers | mutex unlocked
-                                                                        Customers | mutex locked
-Customer arrived in chair = 2 | Waiting = 3
-                                                                        Customers | mutex unlocked
-                                                                        Customers | mutex locked
-Customer arrived in chair = 3 | Waiting = 4
-                                                                        Customers | mutex unlocked
-                                                                        Customers | mutex locked
-All seats are taken, try again later.
-                                                                        Customers | mutex unlocked
-                                                                        Customers | mutex locked
-All seats are taken, try again later.
-                                                                        Customers | mutex unlocked
-                                                                        Customers | mutex locked
-All seats are taken, try again later.
-                                                                        Customers | mutex unlocked
-                                                                        Customers | mutex locked
-All seats are taken, try again later.
-                                                                        Customers | mutex unlocked
-Barber 0 - finished job
-                                                                        Barber 0 | mutex locked |exit section
-                                                                        Barber 0 | mutex unlocked |exit section
-                                                                        Barber 0 | mutex locked |entry section
-                                                                        Barber 0 | mutex unlocked |entry section
-Barber 0 - serving chair 2
 Barber 1 - finished job
                                                                         Barber 1 | mutex locked |exit section
                                                                         Barber 1 | mutex unlocked |exit section
                                                                         Barber 1 | mutex locked |entry section
                                                                         Barber 1 | mutex unlocked |entry section
 Barber 1 - serving chair 1
-                                                                        Customers | mutex locked
-Customer arrived in chair = 2 | Waiting = 3
-                                                                        Customers | mutex unlocked
-Barber 2 - finished job
-                                                                        Barber 2 | mutex locked |exit section
-                                                                        Barber 2 | mutex unlocked |exit section
-                                                                        Barber 2 | mutex locked |entry section
-                                                                        Barber 2 | mutex unlocked |entry section
-Barber 2 - serving chair 2
-                                                                        Customers | mutex locked
-Customer arrived in chair = 2 | Waiting = 3
-                                                                        Customers | mutex unlocked
 Barber 0 - finished job
                                                                         Barber 0 | mutex locked |exit section
+Barber 0 - went to sleep
                                                                         Barber 0 | mutex unlocked |exit section
-                                                                        Barber 0 | mutex locked |entry section
-                                                                        Barber 0 | mutex unlocked |entry section
-Barber 0 - serving chair 3
-                                                                        Customers | mutex locked
-Customer arrived in chair = 2 | Waiting = 3
-                                                                        Customers | mutex unlocked
-                                                                        Customers | mutex locked
-Customer arrived in chair = 3 | Waiting = 4
-                                                                        Customers | mutex unlocked
 Barber 1 - finished job
                                                                         Barber 1 | mutex locked |exit section
+Barber 1 - went to sleep
                                                                         Barber 1 | mutex unlocked |exit section
-                                                                        Barber 1 | mutex locked |entry section
-                                                                        Barber 1 | mutex unlocked |entry section
-Barber 1 - serving chair 2
                                                                         Customers | mutex locked
-Customer arrived in chair = 3 | Waiting = 4
+Customer arrived in chair = 0 | Waiting = 1
+Signal next barber : "Wake up barber 0!"
                                                                         Customers | mutex unlocked
-                                                                        Customers | mutex locked
-All seats are taken, try again later.
-                                                                        Customers | mutex unlocked
-Barber 2 - finished job
-                                                                        Barber 2 | mutex locked |exit section
-                                                                        Barber 2 | mutex unlocked |exit section
-                                                                        Barber 2 | mutex locked |entry section
-                                                                        Barber 2 | mutex unlocked |entry section
-Barber 2 - serving chair 2
-                                                                        Customers | mutex locked
-Customer arrived in chair = 3 | Waiting = 4
-                                                                        Customers | mutex unlocked
-                                                                        Customers | mutex locked
-All seats are taken, try again later.
-                                                                        Customers | mutex unlocked
-Barber 1 - finished job
-                                                                        Barber 1 | mutex locked |exit section
-                                                                        Barber 1 | mutex unlocked |exit section
-                                                                        Barber 1 | mutex locked |entry section
-                                                                        Barber 1 | mutex unlocked |entry section
-Barber 1 - serving chair 2
-Barber 1 - finished job
-                                                                        Barber 1 | mutex locked |exit section
-                                                                        Barber 1 | mutex unlocked |exit section
-                                                                        Barber 1 | mutex locked |entry section
-                                                                        Barber 1 | mutex unlocked |entry section
-Barber 1 - serving chair 3
-                                                                        Customers | mutex locked
-Customer arrived in chair = 2 | Waiting = 3
-                                                                        Customers | mutex unlocked
-                                                                        Customers | mutex locked
-Customer arrived in chair = 3 | Waiting = 4
-                                                                        Customers | mutex unlocked
-Barber 0 - finished job
-                                                                        Barber 0 | mutex locked |exit section
-                                                                        Barber 0 | mutex unlocked |exit section
+Barber 0 - woke up
                                                                         Barber 0 | mutex locked |entry section
                                                                         Barber 0 | mutex unlocked |entry section
-Barber 0 - serving chair 3
-Barber 2 - finished job
-                                                                        Barber 2 | mutex locked |exit section
-                                                                        Barber 2 | mutex unlocked |exit section
-                                                                        Barber 2 | mutex locked |entry section
-                                                                        Barber 2 | mutex unlocked |entry section
-Barber 2 - serving chair 3
+Barber 0 - serving chair 0
                                                                         Customers | mutex locked
-Customer arrived in chair = 2 | Waiting = 3
+Customer arrived in chair = 0 | Waiting = 1
+Signal next barber : "Wake up barber 1!"
                                                                         Customers | mutex unlocked
-Barber 2 - finished job
-                                                                        Barber 2 | mutex locked |exit section
-                                                                        Barber 2 | mutex unlocked |exit section
-                                                                        Barber 2 | mutex locked |entry section
-                                                                        Barber 2 | mutex unlocked |entry section
-Barber 2 - serving chair 2
-Barber 0 - finished job
-                                                                        Barber 0 | mutex locked |exit section
-                                                                        Barber 0 | mutex unlocked |exit section
-                                                                        Barber 0 | mutex locked |entry section
-                                                                        Barber 0 | mutex unlocked |entry section
-Barber 0 - serving chair 3
+Barber 1 - woke up
+                                                                        Barber 1 | mutex locked |entry section
+                                                                        Barber 1 | mutex unlocked |entry section
+Barber 1 - serving chair 0
+                                                                        Customers | mutex locked
+Customer arrived in chair = 0 | Waiting = 1
+                                                                        Customers | mutex unlocked
                                                                         Customers | mutex locked
 Customer arrived in chair = 1 | Waiting = 2
                                                                         Customers | mutex unlocked
-                                                                        Customers | mutex locked
-Customer arrived in chair = 2 | Waiting = 3
-                                                                        Customers | mutex unlocked
 Barber 0 - finished job
                                                                         Barber 0 | mutex locked |exit section
                                                                         Barber 0 | mutex unlocked |exit section
                                                                         Barber 0 | mutex locked |entry section
                                                                         Barber 0 | mutex unlocked |entry section
-Barber 0 - serving chair 2
-Barber 1 - finished job
-                                                                        Barber 1 | mutex locked |exit section
-                                                                        Barber 1 | mutex unlocked |exit section
-                                                                        Barber 1 | mutex locked |entry section
-                                                                        Barber 1 | mutex unlocked |entry section
-Barber 1 - serving chair 1
-                                                                        Customers | mutex locked
-Customer arrived in chair = 1 | Waiting = 2
-                                                                        Customers | mutex unlocked
-                                                                        Customers | mutex locked
-Customer arrived in chair = 2 | Waiting = 3
-                                                                        Customers | mutex unlocked
-Barber 2 - finished job
-                                                                        Barber 2 | mutex locked |exit section
-                                                                        Barber 2 | mutex unlocked |exit section
-                                                                        Barber 2 | mutex locked |entry section
-                                                                        Barber 2 | mutex unlocked |entry section
-Barber 2 - serving chair 2
-                                                                        Customers | mutex locked
-Customer arrived in chair = 2 | Waiting = 3
-                                                                        Customers | mutex unlocked
-Barber 0 - finished job
-                                                                        Barber 0 | mutex locked |exit section
-                                                                        Barber 0 | mutex unlocked |exit section
-                                                                        Barber 0 | mutex locked |entry section
-                                                                        Barber 0 | mutex unlocked |entry section
-Barber 0 - serving chair 1
-Barber 0 - finished job
-                                                                        Barber 0 | mutex locked |exit section
-                                                                        Barber 0 | mutex unlocked |exit section
-                                                                        Barber 0 | mutex locked |entry section
-                                                                        Barber 0 | mutex unlocked |entry section
-Barber 0 - serving chair 2
-                                                                        Customers | mutex locked
-Customer arrived in chair = 1 | Waiting = 2
-                                                                        Customers | mutex unlocked
-Barber 2 - finished job
-                                                                        Barber 2 | mutex locked |exit section
-                                                                        Barber 2 | mutex unlocked |exit section
-                                                                        Barber 2 | mutex locked |entry section
-                                                                        Barber 2 | mutex unlocked |entry section
-Barber 2 - serving chair 2
+Barber 0 - serving chair 0
 Barber 2 - finished job
                                                                         Barber 2 | mutex locked |exit section
                                                                         Barber 2 | mutex unlocked |exit section
@@ -461,21 +248,12 @@ Customer arrived in chair = 0 | Waiting = 1
                                                                         Customers | mutex locked
 Customer arrived in chair = 1 | Waiting = 2
                                                                         Customers | mutex unlocked
-Barber 1 - finished job
-                                                                        Barber 1 | mutex locked |exit section
-                                                                        Barber 1 | mutex unlocked |exit section
-                                                                        Barber 1 | mutex locked |entry section
-                                                                        Barber 1 | mutex unlocked |entry section
-Barber 1 - serving chair 0
-                                                                        Customers | mutex locked
-Customer arrived in chair = 1 | Waiting = 2
-                                                                        Customers | mutex unlocked
 Barber 2 - finished job
                                                                         Barber 2 | mutex locked |exit section
                                                                         Barber 2 | mutex unlocked |exit section
                                                                         Barber 2 | mutex locked |entry section
                                                                         Barber 2 | mutex unlocked |entry section
-Barber 2 - serving chair 1
+Barber 2 - serving chair 0
                                                                         Customers | mutex locked
 Customer arrived in chair = 1 | Waiting = 2
                                                                         Customers | mutex unlocked
@@ -491,6 +269,30 @@ Barber 0 - finished job
                                                                         Barber 0 | mutex locked |entry section
                                                                         Barber 0 | mutex unlocked |entry section
 Barber 0 - serving chair 1
+Barber 1 - finished job
+                                                                        Barber 1 | mutex locked |exit section
+Barber 1 - went to sleep
+                                                                        Barber 1 | mutex unlocked |exit section
+                                                                        Customers | mutex locked
+Customer arrived in chair = 0 | Waiting = 1
+Signal next barber : "Wake up barber 1!"
+                                                                        Customers | mutex unlocked
+Barber 1 - woke up
+                                                                        Barber 1 | mutex locked |entry section
+                                                                        Barber 1 | mutex unlocked |entry section
+Barber 1 - serving chair 0
+Barber 1 - finished job
+                                                                        Barber 1 | mutex locked |exit section
+Barber 1 - went to sleep
+                                                                        Barber 1 | mutex unlocked |exit section
+                                                                        Customers | mutex locked
+Customer arrived in chair = 0 | Waiting = 1
+Signal next barber : "Wake up barber 1!"
+                                                                        Customers | mutex unlocked
+Barber 1 - woke up
+                                                                        Barber 1 | mutex locked |entry section
+                                                                        Barber 1 | mutex unlocked |entry section
+Barber 1 - serving chair 0
                                                                         Customers | mutex locked
 Customer arrived in chair = 0 | Waiting = 1
                                                                         Customers | mutex unlocked
@@ -500,6 +302,150 @@ Barber 1 - finished job
                                                                         Barber 1 | mutex locked |entry section
                                                                         Barber 1 | mutex unlocked |entry section
 Barber 1 - serving chair 0
+                                                                        Customers | mutex locked
+Customer arrived in chair = 0 | Waiting = 1
+                                                                        Customers | mutex unlocked
+                                                                        Customers | mutex locked
+Customer arrived in chair = 1 | Waiting = 2
+                                                                        Customers | mutex unlocked
+                                                                        Customers | mutex locked
+Customer arrived in chair = 2 | Waiting = 3
+                                                                        Customers | mutex unlocked
+                                                                        Customers | mutex locked
+Customer arrived in chair = 3 | Waiting = 4
+                                                                        Customers | mutex unlocked
+Barber 0 - finished job
+                                                                        Barber 0 | mutex locked |exit section
+                                                                        Barber 0 | mutex unlocked |exit section
+                                                                        Barber 0 | mutex locked |entry section
+                                                                        Barber 0 | mutex unlocked |entry section
+Barber 0 - serving chair 0
+Barber 2 - finished job
+                                                                        Barber 2 | mutex locked |exit section
+                                                                        Barber 2 | mutex unlocked |exit section
+                                                                        Barber 2 | mutex locked |entry section
+                                                                        Barber 2 | mutex unlocked |entry section
+Barber 2 - serving chair 1
+                                                                        Customers | mutex locked
+Customer arrived in chair = 2 | Waiting = 3
+                                                                        Customers | mutex unlocked
+                                                                        Customers | mutex locked
+Customer arrived in chair = 3 | Waiting = 4
+                                                                        Customers | mutex unlocked
+                                                                        Customers | mutex locked
+All seats are taken, try again later.
+                                                                        Customers | mutex unlocked
+                                                                        Customers | mutex locked
+All seats are taken, try again later.
+                                                                        Customers | mutex unlocked
+                                                                        Customers | mutex locked
+All seats are taken, try again later.
+                                                                        Customers | mutex unlocked
+Barber 1 - finished job
+                                                                        Barber 1 | mutex locked |exit section
+                                                                        Barber 1 | mutex unlocked |exit section
+                                                                        Barber 1 | mutex locked |entry section
+                                                                        Barber 1 | mutex unlocked |entry section
+Barber 1 - serving chair 2
+Barber 2 - finished job
+                                                                        Barber 2 | mutex locked |exit section
+                                                                        Barber 2 | mutex unlocked |exit section
+                                                                        Barber 2 | mutex locked |entry section
+                                                                        Barber 2 | mutex unlocked |entry section
+Barber 2 - serving chair 3
+                                                                        Customers | mutex locked
+Customer arrived in chair = 2 | Waiting = 3
+                                                                        Customers | mutex unlocked
+Barber 0 - finished job
+                                                                        Barber 0 | mutex locked |exit section
+                                                                        Barber 0 | mutex unlocked |exit section
+                                                                        Barber 0 | mutex locked |entry section
+                                                                        Barber 0 | mutex unlocked |entry section
+Barber 0 - serving chair 2
+                                                                        Customers | mutex locked
+Customer arrived in chair = 2 | Waiting = 3
+                                                                        Customers | mutex unlocked
+                                                                        Customers | mutex locked
+Customer arrived in chair = 3 | Waiting = 4
+                                                                        Customers | mutex unlocked
+                                                                        Customers | mutex locked
+All seats are taken, try again later.
+                                                                        Customers | mutex unlocked
+                                                                        Customers | mutex locked
+All seats are taken, try again later.
+                                                                        Customers | mutex unlocked
+                                                                        Customers | mutex locked
+All seats are taken, try again later.
+                                                                        Customers | mutex unlocked
+Barber 1 - finished job
+                                                                        Barber 1 | mutex locked |exit section
+                                                                        Barber 1 | mutex unlocked |exit section
+                                                                        Barber 1 | mutex locked |entry section
+                                                                        Barber 1 | mutex unlocked |entry section
+Barber 1 - serving chair 3
+Barber 0 - finished job
+                                                                        Barber 0 | mutex locked |exit section
+                                                                        Barber 0 | mutex unlocked |exit section
+                                                                        Barber 0 | mutex locked |entry section
+                                                                        Barber 0 | mutex unlocked |entry section
+Barber 0 - serving chair 2
+                                                                        Customers | mutex locked
+Customer arrived in chair = 2 | Waiting = 3
+                                                                        Customers | mutex unlocked
+Barber 0 - finished job
+                                                                        Barber 0 | mutex locked |exit section
+                                                                        Barber 0 | mutex unlocked |exit section
+                                                                        Barber 0 | mutex locked |entry section
+                                                                        Barber 0 | mutex unlocked |entry section
+Barber 0 - serving chair 2
+Barber 1 - finished job
+                                                                        Barber 1 | mutex locked |exit section
+                                                                        Barber 1 | mutex unlocked |exit section
+                                                                        Barber 1 | mutex locked |entry section
+                                                                        Barber 1 | mutex unlocked |entry section
+Barber 1 - serving chair 3
+Barber 2 - finished job
+                                                                        Barber 2 | mutex locked |exit section
+                                                                        Barber 2 | mutex unlocked |exit section
+                                                                        Barber 2 | mutex locked |entry section
+                                                                        Barber 2 | mutex unlocked |entry section
+Barber 2 - serving chair 2
+                                                                        Customers | mutex locked
+Customer arrived in chair = 0 | Waiting = 1
+                                                                        Customers | mutex unlocked
+                                                                        Customers | mutex locked
+Customer arrived in chair = 1 | Waiting = 2
+                                                                        Customers | mutex unlocked
+                                                                        Customers | mutex locked
+Customer arrived in chair = 2 | Waiting = 3
+                                                                        Customers | mutex unlocked
+Barber 1 - finished job
+                                                                        Barber 1 | mutex locked |exit section
+                                                                        Barber 1 | mutex unlocked |exit section
+                                                                        Barber 1 | mutex locked |entry section
+                                                                        Barber 1 | mutex unlocked |entry section
+Barber 1 - serving chair 0
+Barber 1 - finished job
+                                                                        Barber 1 | mutex locked |exit section
+                                                                        Barber 1 | mutex unlocked |exit section
+                                                                        Barber 1 | mutex locked |entry section
+                                                                        Barber 1 | mutex unlocked |entry section
+Barber 1 - serving chair 1
+Barber 0 - finished job
+                                                                        Barber 0 | mutex locked |exit section
+                                                                        Barber 0 | mutex unlocked |exit section
+                                                                        Barber 0 | mutex locked |entry section
+                                                                        Barber 0 | mutex unlocked |entry section
+Barber 0 - serving chair 2
+                                                                        Customers | mutex locked
+Customer arrived in chair = 0 | Waiting = 1
+                                                                        Customers | mutex unlocked
+Barber 2 - finished job
+                                                                        Barber 2 | mutex locked |exit section
+                                                                        Barber 2 | mutex unlocked |exit section
+                                                                        Barber 2 | mutex locked |entry section
+                                                                        Barber 2 | mutex unlocked |entry section
+Barber 2 - serving chair 0
 Barber 2 - finished job
                                                                         Barber 2 | mutex locked |exit section
 Barber 2 - went to sleep
@@ -527,15 +473,33 @@ Barber 0 - serving chair 0
                                                                         Customers | mutex locked
 Customer arrived in chair = 1 | Waiting = 2
                                                                         Customers | mutex unlocked
+Barber 1 - finished job
+                                                                        Barber 1 | mutex locked |exit section
+                                                                        Barber 1 | mutex unlocked |exit section
+                                                                        Barber 1 | mutex locked |entry section
+                                                                        Barber 1 | mutex unlocked |entry section
+Barber 1 - serving chair 1
+                                                                        Customers | mutex locked
+Customer arrived in chair = 1 | Waiting = 2
+                                                                        Customers | mutex unlocked
+                                                                        Customers | mutex locked
+Customer arrived in chair = 2 | Waiting = 3
+                                                                        Customers | mutex unlocked
+                                                                        Customers | mutex locked
+Customer arrived in chair = 3 | Waiting = 4
+                                                                        Customers | mutex unlocked
 Barber 2 - finished job
                                                                         Barber 2 | mutex locked |exit section
                                                                         Barber 2 | mutex unlocked |exit section
                                                                         Barber 2 | mutex locked |entry section
                                                                         Barber 2 | mutex unlocked |entry section
 Barber 2 - serving chair 1
-                                                                        Customers | mutex locked
-Customer arrived in chair = 1 | Waiting = 2
-                                                                        Customers | mutex unlocked
+Barber 2 - finished job
+                                                                        Barber 2 | mutex locked |exit section
+                                                                        Barber 2 | mutex unlocked |exit section
+                                                                        Barber 2 | mutex locked |entry section
+                                                                        Barber 2 | mutex unlocked |entry section
+Barber 2 - serving chair 1
                                                                         Customers | mutex locked
 Customer arrived in chair = 2 | Waiting = 3
                                                                         Customers | mutex unlocked
@@ -544,21 +508,42 @@ Barber 1 - finished job
                                                                         Barber 1 | mutex unlocked |exit section
                                                                         Barber 1 | mutex locked |entry section
                                                                         Barber 1 | mutex unlocked |entry section
-Barber 1 - serving chair 1
+Barber 1 - serving chair 2
+                                                                        Customers | mutex locked
+Customer arrived in chair = 2 | Waiting = 3
+                                                                        Customers | mutex unlocked
+Barber 0 - finished job
+                                                                        Barber 0 | mutex locked |exit section
+                                                                        Barber 0 | mutex unlocked |exit section
+                                                                        Barber 0 | mutex locked |entry section
+                                                                        Barber 0 | mutex unlocked |entry section
+Barber 0 - serving chair 3
                                                                         Customers | mutex locked
 Customer arrived in chair = 2 | Waiting = 3
                                                                         Customers | mutex unlocked
                                                                         Customers | mutex locked
 Customer arrived in chair = 3 | Waiting = 4
                                                                         Customers | mutex unlocked
-Barber 2 - finished job
-                                                                        Barber 2 | mutex locked |exit section
-                                                                        Barber 2 | mutex unlocked |exit section
-                                                                        Barber 2 | mutex locked |entry section
-                                                                        Barber 2 | mutex unlocked |entry section
-Barber 2 - serving chair 1
+                                                                        Customers | mutex locked
+All seats are taken, try again later.
+                                                                        Customers | mutex unlocked
+                                                                        Customers | mutex locked
+All seats are taken, try again later.
+                                                                        Customers | mutex unlocked
+Barber 1 - finished job
+                                                                        Barber 1 | mutex locked |exit section
+                                                                        Barber 1 | mutex unlocked |exit section
+                                                                        Barber 1 | mutex locked |entry section
+                                                                        Barber 1 | mutex unlocked |entry section
+Barber 1 - serving chair 2
                                                                         Customers | mutex locked
 Customer arrived in chair = 3 | Waiting = 4
+                                                                        Customers | mutex unlocked
+                                                                        Customers | mutex locked
+All seats are taken, try again later.
+                                                                        Customers | mutex unlocked
+                                                                        Customers | mutex locked
+All seats are taken, try again later.
                                                                         Customers | mutex unlocked
 Barber 2 - finished job
                                                                         Barber 2 | mutex locked |exit section
@@ -566,6 +551,42 @@ Barber 2 - finished job
                                                                         Barber 2 | mutex locked |entry section
                                                                         Barber 2 | mutex unlocked |entry section
 Barber 2 - serving chair 2
+Barber 0 - finished job
+                                                                        Barber 0 | mutex locked |exit section
+                                                                        Barber 0 | mutex unlocked |exit section
+                                                                        Barber 0 | mutex locked |entry section
+                                                                        Barber 0 | mutex unlocked |entry section
+Barber 0 - serving chair 2
+                                                                        Customers | mutex locked
+Customer arrived in chair = 2 | Waiting = 3
+                                                                        Customers | mutex unlocked
+                                                                        Customers | mutex locked
+Customer arrived in chair = 3 | Waiting = 4
+                                                                        Customers | mutex unlocked
+                                                                        Customers | mutex locked
+All seats are taken, try again later.
+                                                                        Customers | mutex unlocked
+                                                                        Customers | mutex locked
+All seats are taken, try again later.
+                                                                        Customers | mutex unlocked
+                                                                        Customers | mutex locked
+All seats are taken, try again later.
+                                                                        Customers | mutex unlocked
+Barber 2 - finished job
+                                                                        Barber 2 | mutex locked |exit section
+                                                                        Barber 2 | mutex unlocked |exit section
+                                                                        Barber 2 | mutex locked |entry section
+                                                                        Barber 2 | mutex unlocked |entry section
+Barber 2 - serving chair 3
+                                                                        Customers | mutex locked
+Customer arrived in chair = 3 | Waiting = 4
+                                                                        Customers | mutex unlocked
+Barber 1 - finished job
+                                                                        Barber 1 | mutex locked |exit section
+                                                                        Barber 1 | mutex unlocked |exit section
+                                                                        Barber 1 | mutex locked |entry section
+                                                                        Barber 1 | mutex unlocked |entry section
+Barber 1 - serving chair 3
                                                                         Customers | mutex locked
 Customer arrived in chair = 3 | Waiting = 4
                                                                         Customers | mutex unlocked
@@ -578,6 +599,12 @@ Barber 0 - serving chair 2
                                                                         Customers | mutex locked
 Customer arrived in chair = 3 | Waiting = 4
                                                                         Customers | mutex unlocked
+                                                                        Customers | mutex locked
+All seats are taken, try again later.
+                                                                        Customers | mutex unlocked
+                                                                        Customers | mutex locked
+All seats are taken, try again later.
+                                                                        Customers | mutex unlocked
 Barber 2 - finished job
                                                                         Barber 2 | mutex locked |exit section
                                                                         Barber 2 | mutex unlocked |exit section
@@ -586,6 +613,9 @@ Barber 2 - finished job
 Barber 2 - serving chair 3
                                                                         Customers | mutex locked
 Customer arrived in chair = 3 | Waiting = 4
+                                                                        Customers | mutex unlocked
+                                                                        Customers | mutex locked
+All seats are taken, try again later.
                                                                         Customers | mutex unlocked
 Barber 1 - finished job
                                                                         Barber 1 | mutex locked |exit section
@@ -605,49 +635,25 @@ Barber 0 - finished job
                                                                         Barber 0 | mutex locked |entry section
                                                                         Barber 0 | mutex unlocked |entry section
 Barber 0 - serving chair 3
-                                                                        Customers | mutex locked
-Customer arrived in chair = 3 | Waiting = 4
-                                                                        Customers | mutex unlocked
-                                                                        Customers | mutex locked
-All seats are taken, try again later.
-                                                                        Customers | mutex unlocked
-Barber 2 - finished job
-                                                                        Barber 2 | mutex locked |exit section
-                                                                        Barber 2 | mutex unlocked |exit section
-                                                                        Barber 2 | mutex locked |entry section
-                                                                        Barber 2 | mutex unlocked |entry section
-Barber 2 - serving chair 3
 Barber 1 - finished job
                                                                         Barber 1 | mutex locked |exit section
                                                                         Barber 1 | mutex unlocked |exit section
                                                                         Barber 1 | mutex locked |entry section
                                                                         Barber 1 | mutex unlocked |entry section
 Barber 1 - serving chair 3
-                                                                        Customers | mutex locked
-Customer arrived in chair = 2 | Waiting = 3
-                                                                        Customers | mutex unlocked
-Barber 2 - finished job
-                                                                        Barber 2 | mutex locked |exit section
-                                                                        Barber 2 | mutex unlocked |exit section
-                                                                        Barber 2 | mutex locked |entry section
-                                                                        Barber 2 | mutex unlocked |entry section
-Barber 2 - serving chair 3
-                                                                        Customers | mutex locked
-Customer arrived in chair = 2 | Waiting = 3
-                                                                        Customers | mutex unlocked
 All sleeping barbers awake and all working barbers finish up! 
+Barber 2 - finished job
+                                                                        Barber 2 | mutex locked |exit section
+                                                                        Barber 2 | mutex unlocked |exit section
 Barber 1 - finished job
                                                                         Barber 1 | mutex locked |exit section
                                                                         Barber 1 | mutex unlocked |exit section
 Barber 0 - finished job
                                                                         Barber 0 | mutex locked |exit section
                                                                         Barber 0 | mutex unlocked |exit section
-Barber 0 - total served = 20
-Barber 1 - total served = 18
-Barber 2 - finished job
-                                                                        Barber 2 | mutex locked |exit section
-                                                                        Barber 2 | mutex unlocked |exit section
-Barber 2 - total served = 26
+Barber 0 - total served = 19
+Barber 1 - total served = 24
+Barber 2 - total served = 19
 
 10 seconds is up!
 Exiting Gracefully ... 

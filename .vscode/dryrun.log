@@ -1,5 +1,6 @@
 make --dry-run --keep-going --print-directory
 make: Entering directory '/mnt/c/Users/tanma/Google Drive/Synced Desktop/Y2S2/OSP Files/Assignments/Programming Assignment 1/Repo'
+g++ -c Reader_Writer.cpp
 g++ -Wall -Werror -std=c++11 Reader_Writer.o -O -o simulation -lpthread
 make: Leaving directory '/mnt/c/Users/tanma/Google Drive/Synced Desktop/Y2S2/OSP Files/Assignments/Programming Assignment 1/Repo'
  
