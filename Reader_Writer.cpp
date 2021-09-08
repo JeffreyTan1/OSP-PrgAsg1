@@ -5,6 +5,7 @@
 #include <queue>
 
 #define NUM_THREADS 5
+#define TOTAL_THREADS NUM_THREADS * 2
 #define RUN_TIME 10
 
 using std::cout;
@@ -22,9 +23,9 @@ bool stop = true;
 pthread_mutex_t startThreadsLock = PTHREAD_MUTEX_INITIALIZER;
 pthread_cond_t startThreadsCond = PTHREAD_COND_INITIALIZER;
 
-pthread_mutex_t threadLocks[NUM_THREADS * 2];
-pthread_cond_t threadCondVars[NUM_THREADS * 2];
-bool threadSleep[NUM_THREADS * 2];
+pthread_mutex_t threadLocks[TOTAL_THREADS];
+pthread_cond_t threadCondVars[TOTAL_THREADS];
+bool threadSleep[TOTAL_THREADS];
 
 pthread_mutex_t qMutex;
 std::queue<pthread_cond_t *> threadQueue;
@@ -167,7 +168,7 @@ int main()
 {
     pthread_t writeThreads[NUM_THREADS], readThreads[NUM_THREADS];
     int statusCreate;
-    int labels[NUM_THREADS * 2];
+    int labels[TOTAL_THREADS];
 
     // Create Write threads
     for (int i = 0; i < NUM_THREADS; i++)
@@ -184,7 +185,7 @@ int main()
     }
 
     // Create Read threads
-    for (int i = NUM_THREADS; i < NUM_THREADS * 2; i++)
+    for (int i = NUM_THREADS; i < TOTAL_THREADS; i++)
     {
         threadSleep[i] = true;
         labels[i] = i;
@@ -211,7 +212,7 @@ int main()
     while (initialising)
     {
         pthread_mutex_lock(&qMutex);
-        if (threadQueue.size() == NUM_THREADS * 2)
+        if (threadQueue.size() == TOTAL_THREADS)
         {
             initialising = false;
         }
@@ -258,7 +259,7 @@ int main()
     pthread_mutex_destroy(&wMutex);
     pthread_mutex_destroy(&startThreadsLock);
     pthread_cond_destroy(&startThreadsCond);
-    for (int i = 0; i < NUM_THREADS * 2; i++)
+    for (int i = 0; i < TOTAL_THREADS; i++)
     {
         pthread_mutex_destroy(&threadLocks[i]);
         pthread_cond_destroy(&threadCondVars[i]);
