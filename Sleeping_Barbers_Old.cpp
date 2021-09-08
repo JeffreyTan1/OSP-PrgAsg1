@@ -38,7 +38,7 @@ std::queue<pthread_cond_t *> barberQueue;
 std::queue<int> barberIDQueue;
 
 // Mutex for shared variables: waitingLen, waiting[], barberQueue and barberIDQueue
-pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
+pthread_mutex_t rcMutex = PTHREAD_MUTEX_INITIALIZER;
 
 // First-in-first-served for customers
 std::queue<int> serviceQueue;
@@ -70,7 +70,7 @@ void *Serve(void *threadId)
         int custNum = -1;
 
         // entry section
-        pthread_mutex_lock(&mutex);
+        pthread_mutex_lock(&rcMutex);
 
         cout << spacer << "Barber " << tid << " | mutex locked |"
              << "entry section" << endl;
@@ -82,7 +82,7 @@ void *Serve(void *threadId)
             waitingLen--;
             servedCust = true;
         }
-        pthread_mutex_unlock(&mutex);
+        pthread_mutex_unlock(&rcMutex);
 
         cout << spacer << "Barber " << tid << " | mutex unlocked |"
              << "entry section" << endl;
@@ -103,14 +103,14 @@ void *Serve(void *threadId)
         }
 
         // exit section
-        pthread_mutex_lock(&mutex);
+        pthread_mutex_lock(&rcMutex);
 
         cout << spacer << "Barber " << tid << " | mutex locked |"
              << "exit section" << endl;
 
         if (stop)
         {
-            pthread_mutex_unlock(&mutex);
+            pthread_mutex_unlock(&rcMutex);
 
             cout << spacer << "Barber " << tid << " | mutex unlocked |"
                  << "exit section" << endl;
@@ -124,7 +124,7 @@ void *Serve(void *threadId)
             barberIDQueue.push(tid);
 
             cout << "Barber " << tid << " - went to sleep" << endl;
-            pthread_mutex_unlock(&mutex);
+            pthread_mutex_unlock(&rcMutex);
 
             cout << spacer << "Barber " << tid << " | mutex unlocked |"
                  << "exit section" << endl;
@@ -141,7 +141,7 @@ void *Serve(void *threadId)
         }
         else
         {
-            pthread_mutex_unlock(&mutex);
+            pthread_mutex_unlock(&rcMutex);
 
             cout << spacer << "Barber " << tid << " | mutex unlocked |"
                  << "exit section" << endl;
@@ -167,7 +167,7 @@ void *Enter(void *threadId)
 
     while (!stop)
     {
-        pthread_mutex_lock(&mutex);
+        pthread_mutex_lock(&rcMutex);
 
         cout << spacer << "Customers | mutex locked" << endl;
 
@@ -199,7 +199,7 @@ void *Enter(void *threadId)
             cout << "All seats are taken, try again later."
                  << endl;
         }
-        pthread_mutex_unlock(&mutex);
+        pthread_mutex_unlock(&rcMutex);
 
         cout << spacer << "Customers | mutex unlocked"
              << endl;
@@ -282,7 +282,7 @@ int main(void)
     }
 
     // Clean up
-    pthread_mutex_destroy(&mutex);
+    pthread_mutex_destroy(&rcMutex);
     for (int i = 0; i < NUM_BARBERS; i++)
     {
         pthread_mutex_destroy(&barberLocks[i]);

@@ -13,9 +13,8 @@ using std::rand;
 
 int resource = 0;
 int readCount = 0;
-
 //rename rmutex
-pthread_mutex_t mutex;
+pthread_mutex_t rcMutex;
 pthread_mutex_t wMutex;
 
 bool stop = true;
@@ -49,7 +48,8 @@ void WaitInQueue(int tid)
     threadQueue.push(&threadCondVars[tid]); // add condition variable to queue
     threadIDQueue.push(tid);                // add threadID to queue
     std::string threadType = tid < NUM_THREADS ? "Write" : "Read";
-    cout << threadType << " thread " << tid % NUM_THREADS << " - entered the queue" << endl;
+    cout << threadType << " thread " << tid % NUM_THREADS << " - went to sleep" << endl;
+    // cout << "Queue Size = " << threadQueue.size() << endl;
     pthread_mutex_unlock(&qMutex);
     pthread_mutex_lock(&threadLocks[tid]);
     while (threadSleep[tid])
@@ -57,10 +57,10 @@ void WaitInQueue(int tid)
         pthread_cond_wait(&threadCondVars[tid], &threadLocks[tid]); // wait for condition variable signal
     }
     threadSleep[tid] = true;
-    cout << threadType << " thread " << tid % NUM_THREADS << " - exited the queue" << endl;
+    cout << threadType << " thread " << tid % NUM_THREADS << " - woke up"
+         << endl;
     pthread_mutex_unlock(&threadLocks[tid]);
 }
-
 void SignalQueue()
 {
     pthread_mutex_lock(&qMutex);
@@ -72,11 +72,12 @@ void SignalQueue()
         pthread_cond_signal(threadQueue.front()); // signal next thread in queue
         std::string threadType = tempTid < NUM_THREADS ? "Write" : "Read";
         cout << "Signal next thread : "
-             << "\"Wake up thread TYPE = " << threadType << ", ID = "
+             << "\"Wake up thread TYPE = " << threadType << " ID = "
              << tempTid % NUM_THREADS << "\"" << endl;
         threadIDQueue.pop();
         threadQueue.pop();
         pthread_mutex_unlock(&threadLocks[tempTid]);
+        // cout << "Queue Size = " << threadQueue.size() << endl;
     }
     pthread_mutex_unlock(&qMutex);
 }
@@ -84,9 +85,7 @@ void SignalQueue()
 void *Read(void *threadId)
 {
     int tid = *((int *)threadId);
-
     WaitToStart();
-
     while (!stop)
     {
         WaitInQueue(tid);
@@ -94,7 +93,7 @@ void *Read(void *threadId)
         if (!stop)
         {
             // lock readcount mutex
-            pthread_mutex_lock(&mutex);
+            pthread_mutex_lock(&rcMutex);
             readCount++;
             if (readCount == 1)
             {
@@ -107,13 +106,13 @@ void *Read(void *threadId)
             SignalQueue();
 
             // release readcount mutex
-            pthread_mutex_unlock(&mutex);
+            pthread_mutex_unlock(&rcMutex);
 
             // do reading
             cout << "Read-Thread " << tid % NUM_THREADS << " -- READ: " << resource << endl;
 
             // lock readcount mutex;
-            pthread_mutex_lock(&mutex);
+            pthread_mutex_lock(&rcMutex);
             readCount--;
             if (readCount == 0)
             {
@@ -122,7 +121,7 @@ void *Read(void *threadId)
                 cout << spacer << "Unlock Writing" << endl;
             }
             // release readcount mutex;
-            pthread_mutex_unlock(&mutex);
+            pthread_mutex_unlock(&rcMutex);
         }
     }
 
@@ -146,7 +145,6 @@ void *Write(void *threadId)
             // lock write mutex
             pthread_mutex_lock(&wMutex);
             cout << spacer << "Lock Writing" << endl;
-
             // queue signal next
             SignalQueue();
 
@@ -163,9 +161,9 @@ void *Write(void *threadId)
     pthread_exit(NULL);
 }
 
-int main()
+int main(void)
 {
-    pthread_t writeThreads[NUM_THREADS], readThreads[NUM_THREADS];
+    pthread_t wThreads[NUM_THREADS], rThreads[NUM_THREADS];
     int statusCreate;
     int labels[NUM_THREADS * 2];
 
@@ -174,8 +172,9 @@ int main()
     {
         threadSleep[i] = true;
         labels[i] = i;
-        cout << "main() : creating write thread, " << labels[i] << endl;
-        statusCreate = pthread_create(&writeThreads[i], NULL, Write, (void *)&labels[i]);
+
+        cout << "main() : creating write thread, " << labels[i] % NUM_THREADS << endl;
+        statusCreate = pthread_create(&wThreads[i], NULL, Write, (void *)&labels[i]);
         if (statusCreate != 0)
         {
             cout << "Error:unable to create thread," << statusCreate << endl;
@@ -189,7 +188,7 @@ int main()
         threadSleep[i] = true;
         labels[i] = i;
         cout << "main() : creating read thread, " << labels[i] % NUM_THREADS << endl;
-        statusCreate = pthread_create(&readThreads[i % NUM_THREADS], NULL, Read, (void *)&labels[i]);
+        statusCreate = pthread_create(&rThreads[i], NULL, Read, (void *)&labels[i]);
         if (statusCreate != 0)
         {
             cout << "Error:unable to create thread," << statusCreate << endl;
@@ -203,10 +202,6 @@ int main()
     pthread_cond_broadcast(&startThreadsCond);
     pthread_mutex_unlock(&startThreadsLock);
 
-    // wait for threads to enter queue
-    cout << "\n**********Waiting for all threads to enter queue**********\n"
-         << endl;
-
     bool initialising = true;
     while (initialising)
     {
@@ -218,9 +213,6 @@ int main()
         pthread_mutex_unlock(&qMutex);
     }
 
-    cout << "\n**********Queue full, lets begin!**********\n"
-         << endl;
-
     // start first in queue
     SignalQueue();
 
@@ -228,45 +220,16 @@ int main()
     sleep(RUN_TIME);
     stop = true;
 
-    cout << endl
-         << "****************" << RUN_TIME << " seconds is up! "
-         << "All sleeping threads awake and all working threads finish up! "
-         << "****************" << endl;
-
-    // Awaken all sleeping threads
-    bool cont = true;
-    do
+    while (!threadQueue.empty() && !threadIDQueue.empty())
     {
         SignalQueue();
-        pthread_mutex_lock(&qMutex);
-        if (threadQueue.empty() && threadIDQueue.empty())
-        {
-            cont = false;
-        }
-        pthread_mutex_unlock(&qMutex);
-    } while (cont);
+    }
 
-    //join threads
     for (int i = 0; i < NUM_THREADS; i++)
     {
-        pthread_join(writeThreads[i], NULL);
-        pthread_join(readThreads[i], NULL);
+        pthread_join(wThreads[i], NULL);
+        pthread_join(rThreads[i], NULL);
     }
-
-    // clean
-    pthread_mutex_destroy(&mutex);
-    pthread_mutex_destroy(&wMutex);
-    pthread_mutex_destroy(&startThreadsLock);
-    pthread_cond_destroy(&startThreadsCond);
-    for (int i = 0; i < NUM_THREADS * 2; i++)
-    {
-        pthread_mutex_destroy(&threadLocks[i]);
-        pthread_cond_destroy(&threadCondVars[i]);
-    }
-    pthread_mutex_destroy(&qMutex);
-
-    cout << endl
-         << "Exiting Gracefully ... " << endl;
 
     return EXIT_SUCCESS;
 }

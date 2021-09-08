@@ -1,4 +1,6 @@
 make all --print-data-base --no-builtin-variables --no-builtin-rules --question
+make: *** No rule to make target 'all'.  Stop.
+ 
 # GNU Make 4.2.1
 # Built for x86_64-pc-linux-gnu
 # Copyright (C) 1988-2016 Free Software Foundation, Inc.
@@ -6,7 +8,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Wed Sep  8 11:55:11 2021
+# Make data base, printed on Wed Sep  8 12:59:11 2021
 
 # Variables
 
@@ -107,7 +109,7 @@ MAKE_VERSION := 4.2.1
 # environment
 USER = root
 # makefile
-.DEFAULT_GOAL := all
+.DEFAULT_GOAL := rw
 # environment
 NAME = DESKTOP-RQSDANH
 # automatic
@@ -165,7 +167,7 @@ MOTD_SHOWN = update-motd
 # environment
 _CE_CONDA = 
 # variable set hash-table stats:
-# Load=77/1024=8%, Rehash=0, Collisions=6/105=6%
+# Load=77/1024=8%, Rehash=0, Collisions=6/102=6%
 
 # Pattern-specific Variable Values
 
@@ -173,9 +175,9 @@ _CE_CONDA =
 
 # Directories
 
-# . (device 43, inode 21392098230022689): 49 files, no impossibilities.
+# . (device 43, inode 21392098230022689): 47 files, no impossibilities.
 
-# 49 files, no impossibilities in 1 directories.
+# 47 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -183,79 +185,46 @@ _CE_CONDA =
 
 # Files
 
-all: Reader_Writer Sleeping_Barbers Menu
+# Not a target:
+all:
 #  Command line target.
 #  Implicit rule search has been done.
 #  File does not exist.
-#  File has been updated.
-#  Needs to be updated (-q is set).
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/3=0%
+#  File has not been updated.
 
 Sleeping_Barbers.o: Sleeping_Barbers.cpp
 #  Implicit rule search has not been done.
-#  Implicit/static pattern stem: ''
-#  Last modified 2021-09-07 19:56:24.92
-#  File has been updated.
-#  Needs to be updated (-q is set).
-# automatic
-# @ := Sleeping_Barbers.o
-# automatic
-# % := 
-# automatic
-# * := 
-# automatic
-# + := Sleeping_Barbers.cpp
-# automatic
-# | := 
-# automatic
-# < := Sleeping_Barbers.cpp
-# automatic
-# ^ := Sleeping_Barbers.cpp
-# automatic
-# ? := Sleeping_Barbers.cpp
-# variable set hash-table stats:
-# Load=8/32=25%, Rehash=0, Collisions=1/11=9%
-#  recipe to execute (from 'Makefile', line 21):
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 15):
 	g++ -c Sleeping_Barbers.cpp
 
 Sleeping_Barbers: Sleeping_Barbers.o
 #  Implicit rule search has not been done.
-#  Last modified 2021-09-07 19:56:25.2
-#  File has been updated.
-#  Needs to be updated (-q is set).
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/3=0%
-#  recipe to execute (from 'Makefile', line 18):
-	g++ -Wall -Werror -std=c++11 Sleeping_Barbers.o -O -o Sleeping_Barbers -lpthread
-
-.default: all
-#  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
-
-# Not a target:
-.SUFFIXES:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 12):
+	g++ -Wall -Werror -std=c++11 Sleeping_Barbers.o -O -o simulation -lpthread
 
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2021-09-07 20:25:59.0466694
+#  Last modified 2021-09-08 12:55:39.3215574
 #  File has been updated.
 #  Successfully updated.
 
 # Not a target:
 Reader_Writer.cpp:
-#  Implicit rule search has been done.
-#  Last modified 2021-09-07 20:57:54.2927256
-#  File has been updated.
-#  Successfully updated.
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
 
-# Not a target:
-Menu.cpp:
+rw: Reader_Writer
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+sb: Sleeping_Barbers
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
@@ -270,61 +239,43 @@ clean:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
-#  recipe to execute (from 'Makefile', line 24):
-	rm *.o Reader_Writer Sleeping_Barbers Menu
+#  recipe to execute (from 'Makefile', line 18):
+	rm *.o Reader_Writer Sleeping_Barbers
 
 # Not a target:
 Sleeping_Barbers.cpp:
-#  Implicit rule search has been done.
- 
-#  Last modified 2021-09-07 23:57:42.5978712
-#  File has been updated.
-#  Successfully updated.
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
 
 Reader_Writer.o: Reader_Writer.cpp
-#  Implicit rule search has not been done.
-#  Last modified 2021-09-07 23:27:55.7977248
-#  File has been updated.
-#  Successfully updated.
-#  recipe to execute (from 'Makefile', line 15):
-	g++ -c Reader_Writer.cpp
-
-Reader_Writer: Reader_Writer.o
-#  Implicit rule search has not been done.
-#  Last modified 2021-09-07 23:27:56.0585094
-#  File has been updated.
-#  Successfully updated.
-#  recipe to execute (from 'Makefile', line 12):
-	g++ -Wall -Werror -std=c++11 Reader_Writer.o -O -o Reader_Writer -lpthread
-
-Menu.o: Menu.cpp
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
 #  recipe to execute (from 'Makefile', line 9):
-	g++ -c Menu.cpp
+	g++ -c Reader_Writer.cpp
 
-Menu: Menu.o
+Reader_Writer: Reader_Writer.o
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
 #  recipe to execute (from 'Makefile', line 6):
-	g++ -Wall -Werror -std=c++11 Menu.o -O -o ./simulation -lpthread
+	g++ -Wall -Werror -std=c++11 Reader_Writer.o -O -o simulation -lpthread
 
 # files hash-table stats:
-# Load=15/1024=1%, Rehash=0, Collisions=0/43=0%
+# Load=13/1024=1%, Rehash=0, Collisions=0/33=0%
 # VPATH Search Paths
 
 # No 'vpath' search paths.
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 56 / storage = 662 B / avg = 11 B
-# current buf: size = 8162 B / used = 662 B / count = 56 / avg = 11 B
+# strcache buffers: 1 (0) / strings = 56 / storage = 655 B / avg = 11 B
+# current buf: size = 8162 B / used = 655 B / count = 56 / avg = 11 B
 
-# strcache performance: lookups = 87 / hit rate = 35%
+# strcache performance: lookups = 76 / hit rate = 26%
 # hash-table stats:
-# Load=56/8192=1%, Rehash=0, Collisions=2/87=2%
-# Finished Make data base on Wed Sep  8 11:55:11 2021
+# Load=56/8192=1%, Rehash=0, Collisions=2/76=3%
+# Finished Make data base on Wed Sep  8 12:59:11 2021
 
  
