@@ -3,8 +3,6 @@
 #include <random>
 #include <unistd.h>
 #include <queue>
-#include <vector>
-#include <tuple>
 
 #define RUN_TIME 10
 #define NUM_SEATS 4
@@ -15,13 +13,14 @@
 // NUM_BARBERS = 2, CUST_FREQ = 3
 // NUM_BARBERS = 3, CUST_FREQ = 4
 #define NUM_BARBERS 3
-#define CUST_FREQ 4
+#define CUST_FREQ 3
 
 using std::cout;
 using std::endl;
 using std::rand;
 
 // Set this variable for the mutex "unlock"/"lock" outputs
+
 int waiting[NUM_SEATS];
 int waitingLen = 0;
 bool stop = false;
@@ -32,24 +31,11 @@ pthread_mutex_t barberLocks[NUM_BARBERS];
 pthread_cond_t barberCondVars[NUM_BARBERS];
 bool barberSleep[NUM_BARBERS];
 
-// Priority queue to wake up the barber with least customers served.
-// Uses QueueItem struct as inputs for priority queue
-struct QueueItem
-{
-    int totalServed;
-    pthread_cond_t *conditionVar;
-    int tid;
+// First-sleep-first-wake to share work (relatively) evenly
 
-    QueueItem(int totalServed, pthread_cond_t *conditionVar, int tid) : totalServed(totalServed), conditionVar(conditionVar), tid(tid)
-    {
-    }
-
-    bool operator<(const struct QueueItem &other) const
-    {
-        return totalServed > other.totalServed;
-    }
-};
-std::priority_queue<QueueItem> barberPQueue;
+// TODO: use tree map to sort by total served?
+std::queue<pthread_cond_t *> barberQueue;
+std::queue<int> barberIDQueue;
 
 // Mutex for shared variables: waitingLen, waiting[], barberQueue and barberIDQueue
 pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
@@ -57,35 +43,18 @@ pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
 // First-in-first-served for customers
 std::queue<int> serviceQueue;
 
-// Pause execution until all threads created
+// Stop execution until all threads created
 pthread_mutex_t startThreadsLock = PTHREAD_MUTEX_INITIALIZER;
 pthread_cond_t startThreadsCond = PTHREAD_COND_INITIALIZER;
 bool waitStart = true;
 
-// Makes output more readable
 std::string spacer = "                                                                        ";
 
-// Wakes up the next barber in the priority queue
-void SignalBarber()
+void *Serve(void *threadId)
 {
+    int tid = *((int *)threadId);
+    int totalServed = 0;
 
-    QueueItem bt = barberPQueue.top();
-    int totalServed = bt.totalServed;
-    pthread_cond_t *conditionVar = bt.conditionVar;
-    int tid = bt.tid;
-    pthread_mutex_lock(&barberLocks[tid]);
-    barberSleep[tid] = false;
-    pthread_cond_signal(&*(conditionVar));
-    cout << "Signal next barber : "
-         << "\"Wake up barber " << tid << "!\"" << endl;
-    barberPQueue.pop();
-
-    pthread_mutex_unlock(&barberLocks[tid]);
-}
-
-// Call at the start of threads to pause execution
-void WaitToStart()
-{
     // wait for signal to start
     pthread_mutex_lock(&startThreadsLock);
     while (waitStart)
@@ -94,17 +63,10 @@ void WaitToStart()
     }
     pthread_mutex_unlock(&startThreadsLock);
     // end wait
-}
-
-void *Serve(void *threadId)
-{
-    int tid = *((int *)threadId);
-    int totalServed = 0;
-
-    WaitToStart();
 
     while (!stop)
     {
+        bool servedCust = false;
         int custNum = -1;
 
         // entry section
@@ -115,9 +77,10 @@ void *Serve(void *threadId)
 
         if (waitingLen > 0)
         {
-            custNum = serviceQueue.front(); // get the customer index to serve later
+            custNum = serviceQueue.front();
             serviceQueue.pop();
-            waitingLen--; // decrement
+            waitingLen--;
+            servedCust = true;
         }
         pthread_mutex_unlock(&mutex);
 
@@ -125,14 +88,15 @@ void *Serve(void *threadId)
              << "entry section" << endl;
 
         // WORK
-        if (custNum != -1)
+        if (servedCust)
         {
             cout << "Barber " << tid << " - serving chair "
                  << custNum
                  << endl;
 
+            // Cut hair
             int cutTime = rand() % 1000 * 1000;
-            usleep(cutTime); // work for 0 to 1000 milliseconds
+            usleep(cutTime);
             cout << "Barber " << tid << " - finished job"
                  << endl;
             totalServed++;
@@ -144,43 +108,62 @@ void *Serve(void *threadId)
         cout << spacer << "Barber " << tid << " | mutex locked |"
              << "exit section" << endl;
 
-        if (stop || waitingLen > 0) // Dont sleep if stop is true, or there are more customers waiting
+        if (stop)
         {
             pthread_mutex_unlock(&mutex);
 
             cout << spacer << "Barber " << tid << " | mutex unlocked |"
                  << "exit section" << endl;
+
+            // Do not go to sleep after servicing a customer if stop condition is true
+            // because other threads will have terminated and will be unable to awake this thread.
         }
-        else
+        else if (waitingLen == 0)
         {
-            barberPQueue.push(QueueItem(totalServed, &barberCondVars[tid], tid)); // When there are no customers, put self into the priority queue
+            barberQueue.push(&barberCondVars[tid]);
+            barberIDQueue.push(tid);
 
             cout << "Barber " << tid << " - went to sleep" << endl;
             pthread_mutex_unlock(&mutex);
 
             cout << spacer << "Barber " << tid << " | mutex unlocked |"
                  << "exit section" << endl;
+
             pthread_mutex_lock(&barberLocks[tid]);
             while (barberSleep[tid])
             {
-                pthread_cond_wait(&barberCondVars[tid], &barberLocks[tid]); // go to sleep
+                pthread_cond_wait(&barberCondVars[tid], &barberLocks[tid]);
             }
             barberSleep[tid] = true;
             cout << "Barber " << tid << " - woke up"
                  << endl;
             pthread_mutex_unlock(&barberLocks[tid]);
         }
+        else
+        {
+            pthread_mutex_unlock(&mutex);
+
+            cout << spacer << "Barber " << tid << " | mutex unlocked |"
+                 << "exit section" << endl;
+        }
     }
 
     // Return total customers served
-    int *result = (int *)malloc(sizeof(int)); // freed in main
+    int *result = (int *)malloc(sizeof(int));
     *result = totalServed;
     pthread_exit(result);
 }
 
 void *Enter(void *threadId)
 {
-    WaitToStart();
+    // wait for signal to start
+    pthread_mutex_lock(&startThreadsLock);
+    while (waitStart)
+    {
+        pthread_cond_wait(&startThreadsCond, &startThreadsLock);
+    }
+    pthread_mutex_unlock(&startThreadsLock);
+    // end wait
 
     while (!stop)
     {
@@ -192,15 +175,23 @@ void *Enter(void *threadId)
         if (waitingLen < NUM_SEATS)
         {
             waiting[waitingLen] = waitingLen + 1;
-            serviceQueue.push(waitingLen); // put customer's index in queue
+            serviceQueue.push(waitingLen);
             cout << "Customer arrived in chair = " << waitingLen << " | Waiting = " << waitingLen + 1
                  << endl;
             waitingLen++;
 
-            // Wake-up next barber in queue if this is the first customer
-            if (waitingLen == 1 && !barberPQueue.empty())
+            // Wake-up next barber in queue
+            if (waitingLen == 1 && !barberQueue.empty() && !barberIDQueue.empty())
             {
-                SignalBarber();
+                pthread_mutex_lock(&barberLocks[barberIDQueue.front()]);
+                int bTid = barberIDQueue.front();
+                barberSleep[bTid] = false;
+                pthread_cond_signal(barberQueue.front());
+                cout << "Signal next barber : "
+                     << "\"Wake up barber " << bTid << "!\"" << endl;
+                barberIDQueue.pop();
+                barberQueue.pop();
+                pthread_mutex_unlock(&barberLocks[bTid]);
             }
         }
         else
@@ -214,7 +205,26 @@ void *Enter(void *threadId)
              << endl;
 
         int pauseTime = (rand() % 1000 * 1000) / CUST_FREQ;
-        usleep(pauseTime); // sleep for 0 to 1000 milliseconds
+        usleep(pauseTime);
+    }
+
+    // Wake up any sleeping barbers so program can terminate
+    if (stop)
+    {
+        cout << "End of shift, all sleeping barbers awake and all working barbers finish up! "
+             << endl;
+        while (!barberQueue.empty() && !barberIDQueue.empty())
+        {
+            pthread_mutex_lock(&barberLocks[barberIDQueue.front()]);
+            int bTid = barberIDQueue.front();
+            barberSleep[bTid] = false;
+            pthread_cond_signal(barberQueue.front());
+            cout << "Signal next barber : "
+                 << "\"Wake up barber " << bTid << "!\"" << endl;
+            barberIDQueue.pop();
+            barberQueue.pop();
+            pthread_mutex_unlock(&barberLocks[bTid]);
+        }
     }
 
     pthread_exit(NULL);
@@ -260,13 +270,6 @@ int main(void)
     sleep(RUN_TIME);
     stop = true;
 
-    cout << "All sleeping barbers awake and all working barbers finish up! "
-         << endl;
-    while (!barberPQueue.empty())
-    {
-        SignalBarber();
-    }
-
     // Join all threads
     pthread_join(customers, NULL);
 
@@ -276,7 +279,6 @@ int main(void)
         pthread_join(barbers[i], &result);
         cout << "Barber " << i << " - total served = " << *((int *)result)
              << endl;
-        free(result);
     }
 
     // Clean up

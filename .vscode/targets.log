@@ -6,7 +6,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Sat Sep  4 21:21:12 2021
+# Make data base, printed on Wed Sep  8 11:55:11 2021
 
 # Variables
 
@@ -51,13 +51,13 @@ VSCODE_CWD = /mnt/c/Users/tanma/AppData/Local/Programs/Microsoft VS Code
 # default
 MAKE_HOST := x86_64-pc-linux-gnu
 # environment
-PATH = /root/.vscode-server/bin/e7d7e9a9348e6a8cc8c03f877d39cb72e5dfb1ff/bin:/root/miniconda3/bin:/root/miniconda3/condabin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/mnt/c/Program Files (x86)/Common Files/Oracle/Java/javapath:/mnt/c/Program Files/NVIDIA Corporation/NVIDIA NvDLISR:/mnt/c/Program Files/nodejs:/mnt/c/Program Files/Docker/Docker/resources/bin:/mnt/c/ProgramData/DockerDesktop/version-bin:/mnt/c/Ruby30-x64/bin:/mnt/c/Users/tanma/AppData/Local/Programs/Python/Python38-32/Scripts:/mnt/c/Users/tanma/AppData/Local/Programs/Python/Python38-32:/mnt/c/Users/tanma/AppData/Local/Programs/Python/Python36/Scripts:/mnt/c/Users/tanma/AppData/Local/Programs/Python/Python36:/mnt/c/Users/tanma/AppData/Local/Programs/Python/Python38/Scripts:/mnt/c/Users/tanma/AppData/Local/Programs/Python/Python38:/mnt/c/Users/tanma/AppData/Local/Microsoft/WindowsApps:/mnt/c/Program Files/Intel/WiFi/bin:/mnt/c/Program Files/Common Files/Intel/WirelessCommon:/mnt/c/Users/tanma/AppData/Local/Programs/Microsoft VS Code/bin:/mnt/c/Users/tanma/go/bin:/mnt/c/Users/tanma/AppData/Local/Programs/IPFS Desktop/resources/app.asar.unpacked/src/ipfs-on-path/scripts/bin-win:/mnt/c/Users/tanma/AppData/Local/GitHubDesktop/bin:/mnt/c/Users/tanma/AppData/Local/Microsoft/WindowsApps:/mnt/c/apache-maven-3.6.3/bin:/mnt/c/Program Files/Java/jdk-11.0.10/bin:/mnt/c/Program Files/JetBrains/IntelliJ IDEA Community Edition 2021.1/bin:/mnt/c/Program Files/heroku/bin:/mnt/c/Users/tanma/AppData/Roaming/npm:/snap/bin
+PATH = /root/.vscode-server/bin/e7d7e9a9348e6a8cc8c03f877d39cb72e5dfb1ff/bin:/root/miniconda3/bin:/root/miniconda3/condabin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/mnt/c/Program Files (x86)/NVIDIA Corporation/PhysX/Common:/mnt/c/Program Files (x86)/Common Files/Oracle/Java/javapath:/mnt/c/Program Files/NVIDIA Corporation/NVIDIA NvDLISR:/mnt/c/Program Files/nodejs:/mnt/c/Program Files/Docker/Docker/resources/bin:/mnt/c/ProgramData/DockerDesktop/version-bin:/mnt/c/Ruby30-x64/bin:/mnt/c/Users/tanma/AppData/Local/Programs/Python/Python38-32/Scripts:/mnt/c/Users/tanma/AppData/Local/Programs/Python/Python38-32:/mnt/c/Users/tanma/AppData/Local/Programs/Python/Python36/Scripts:/mnt/c/Users/tanma/AppData/Local/Programs/Python/Python36:/mnt/c/Users/tanma/AppData/Local/Programs/Python/Python38/Scripts:/mnt/c/Users/tanma/AppData/Local/Programs/Python/Python38:/mnt/c/Users/tanma/AppData/Local/Microsoft/WindowsApps:/mnt/c/Program Files/Intel/WiFi/bin:/mnt/c/Program Files/Common Files/Intel/WirelessCommon:/mnt/c/Users/tanma/AppData/Local/Programs/Microsoft VS Code/bin:/mnt/c/Users/tanma/go/bin:/mnt/c/Users/tanma/AppData/Local/Programs/IPFS Desktop/resources/app.asar.unpacked/src/ipfs-on-path/scripts/bin-win:/mnt/c/Users/tanma/AppData/Local/GitHubDesktop/bin:/mnt/c/Users/tanma/AppData/Local/Microsoft/WindowsApps:/mnt/c/apache-maven-3.6.3/bin:/mnt/c/Program Files/Java/jdk-11.0.10/bin:/mnt/c/Program Files/JetBrains/IntelliJ IDEA Community Edition 2021.1/bin:/mnt/c/Program Files/heroku/bin:/mnt/c/Users/tanma/AppData/Roaming/npm:/snap/bin
 # environment
 CONDA_PREFIX = /root/miniconda3
 # environment
 VSCODE_LOG_STACK = false
 # environment
-VSCODE_IPC_HOOK_CLI = /tmp/vscode-ipc-d314834c-48e1-4ed2-8b6e-5e48da643cec.sock
+VSCODE_IPC_HOOK_CLI = /tmp/vscode-ipc-d01a02dd-3720-45ad-a096-abd19820b9f1.sock
 # default
 .FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell archives jobserver output-sync check-symlink load
 # environment
@@ -73,7 +73,7 @@ PWD = /mnt/c/Users/tanma/Google Drive/Synced Desktop/Y2S2/OSP Files/Assignments/
 # default
 .LOADED := 
 # environment
-WSL_INTEROP = /run/WSL/18_interop
+WSL_INTEROP = /run/WSL/13_interop
 # environment
 VSCODE_AMD_ENTRYPOINT = vs/server/remoteExtensionHostProcess
 # environment
@@ -161,9 +161,11 @@ VSCODE_EXTHOST_WILL_SEND_SOCKET = true
 # environment
 WSL_DISTRO_NAME = Ubuntu
 # environment
+MOTD_SHOWN = update-motd
+# environment
 _CE_CONDA = 
 # variable set hash-table stats:
-# Load=76/1024=7%, Rehash=0, Collisions=6/101=6%
+# Load=77/1024=8%, Rehash=0, Collisions=6/105=6%
 
 # Pattern-specific Variable Values
 
@@ -171,9 +173,9 @@ _CE_CONDA =
 
 # Directories
 
-# . (device 43, inode 21392098230022689): 31 files, no impossibilities.
+# . (device 43, inode 21392098230022689): 49 files, no impossibilities.
 
-# 31 files, no impossibilities in 1 directories.
+# 49 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -181,27 +183,50 @@ _CE_CONDA =
 
 # Files
 
-all: Reader_Writer Sleeping_Barbers
+all: Reader_Writer Sleeping_Barbers Menu
 #  Command line target.
 #  Implicit rule search has been done.
 #  File does not exist.
 #  File has been updated.
-#  Successfully updated.
+#  Needs to be updated (-q is set).
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/3=0%
 
 Sleeping_Barbers.o: Sleeping_Barbers.cpp
 #  Implicit rule search has not been done.
-#  Last modified 2021-09-04 21:19:52.322359
+#  Implicit/static pattern stem: ''
+#  Last modified 2021-09-07 19:56:24.92
 #  File has been updated.
-#  Successfully updated.
-#  recipe to execute (from 'Makefile', line 16):
+#  Needs to be updated (-q is set).
+# automatic
+# @ := Sleeping_Barbers.o
+# automatic
+# % := 
+# automatic
+# * := 
+# automatic
+# + := Sleeping_Barbers.cpp
+# automatic
+# | := 
+# automatic
+# < := Sleeping_Barbers.cpp
+# automatic
+# ^ := Sleeping_Barbers.cpp
+# automatic
+# ? := Sleeping_Barbers.cpp
+# variable set hash-table stats:
+# Load=8/32=25%, Rehash=0, Collisions=1/11=9%
+#  recipe to execute (from 'Makefile', line 21):
 	g++ -c Sleeping_Barbers.cpp
 
 Sleeping_Barbers: Sleeping_Barbers.o
 #  Implicit rule search has not been done.
-#  Last modified 2021-09-04 21:19:52.6133468
+#  Last modified 2021-09-07 19:56:25.2
 #  File has been updated.
-#  Successfully updated.
-#  recipe to execute (from 'Makefile', line 13):
+#  Needs to be updated (-q is set).
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/3=0%
+#  recipe to execute (from 'Makefile', line 18):
 	g++ -Wall -Werror -std=c++11 Sleeping_Barbers.o -O -o Sleeping_Barbers -lpthread
 
 .default: all
@@ -210,18 +235,30 @@ Sleeping_Barbers: Sleeping_Barbers.o
 #  File has not been updated.
 
 # Not a target:
+.SUFFIXES:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2021-09-04 21:21:06.9492013
+#  Last modified 2021-09-07 20:25:59.0466694
 #  File has been updated.
 #  Successfully updated.
 
 # Not a target:
 Reader_Writer.cpp:
 #  Implicit rule search has been done.
-#  Last modified 2021-09-04 21:05:27
+#  Last modified 2021-09-07 20:57:54.2927256
 #  File has been updated.
 #  Successfully updated.
+
+# Not a target:
+Menu.cpp:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
 
 # Not a target:
 .DEFAULT:
@@ -233,46 +270,61 @@ clean:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
-#  recipe to execute (from 'Makefile', line 19):
-	rm *.o Reader_Writer Sleeping_Barbers
+#  recipe to execute (from 'Makefile', line 24):
+	rm *.o Reader_Writer Sleeping_Barbers Menu
 
 # Not a target:
 Sleeping_Barbers.cpp:
 #  Implicit rule search has been done.
-#  Last modified 2021-09-04 18:59:44.039586
+ 
+#  Last modified 2021-09-07 23:57:42.5978712
 #  File has been updated.
 #  Successfully updated.
 
 Reader_Writer.o: Reader_Writer.cpp
 #  Implicit rule search has not been done.
-#  Last modified 2021-09-04 21:19:51.8083486
+#  Last modified 2021-09-07 23:27:55.7977248
 #  File has been updated.
 #  Successfully updated.
-#  recipe to execute (from 'Makefile', line 10):
+#  recipe to execute (from 'Makefile', line 15):
 	g++ -c Reader_Writer.cpp
 
 Reader_Writer: Reader_Writer.o
 #  Implicit rule search has not been done.
-#  Last modified 2021-09-04 21:19:51.9323488
+#  Last modified 2021-09-07 23:27:56.0585094
 #  File has been updated.
 #  Successfully updated.
-#  recipe to execute (from 'Makefile', line 6):
+#  recipe to execute (from 'Makefile', line 12):
 	g++ -Wall -Werror -std=c++11 Reader_Writer.o -O -o Reader_Writer -lpthread
 
+Menu.o: Menu.cpp
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 9):
+	g++ -c Menu.cpp
+
+Menu: Menu.o
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 6):
+	g++ -Wall -Werror -std=c++11 Menu.o -O -o ./simulation -lpthread
+
 # files hash-table stats:
-# Load=12/1024=1%, Rehash=0, Collisions=0/34=0%
+# Load=15/1024=1%, Rehash=0, Collisions=0/43=0%
 # VPATH Search Paths
 
 # No 'vpath' search paths.
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 38 / storage = 430 B / avg = 11 B
-# current buf: size = 8162 B / used = 430 B / count = 38 / avg = 11 B
+# strcache buffers: 1 (0) / strings = 56 / storage = 662 B / avg = 11 B
+# current buf: size = 8162 B / used = 662 B / count = 56 / avg = 11 B
 
-# strcache performance: lookups = 61 / hit rate = 37%
+# strcache performance: lookups = 87 / hit rate = 35%
 # hash-table stats:
-# Load=38/8192=0%, Rehash=0, Collisions=1/61=2%
-# Finished Make data base on Sat Sep  4 21:21:12 2021
+# Load=56/8192=1%, Rehash=0, Collisions=2/87=2%
+# Finished Make data base on Wed Sep  8 11:55:11 2021
 
  
