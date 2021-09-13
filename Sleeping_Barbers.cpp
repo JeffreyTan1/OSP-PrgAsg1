@@ -3,8 +3,6 @@
 #include <random>
 #include <unistd.h>
 #include <queue>
-#include <vector>
-#include <tuple>
 
 #define RUN_TIME 10
 #define NUM_SEATS 4

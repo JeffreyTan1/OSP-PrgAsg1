@@ -30,7 +30,10 @@ NUM_BARBERS = 2, CUST_FREQ = 3
 NUM_BARBERS = 3, CUST_FREQ = 4
 
 ##############  COMPILATION  ########################################################
+1.
+scl enable devtoolset-9 bash
 
+2.
 (1) Reader-Writer Problem
 make rw
 (2) Sleeping-Barber Problem
